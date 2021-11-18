@@ -1,0 +1,16 @@
+h1 {
+    margin-left: 15px;
+}
+
+.image {
+    float: left;    
+    margin: 0 15px 0 0;
+}
+
+.form {
+    margin-left: 15px;
+}
+
+button {
+    margin-top: 15px;
+}
