@@ -21,12 +21,12 @@
         <div>
             <h1>{{ user.full_name }}</h1>
 
-            <form>
-                <button class="btn btn-primary btn-sm"
+            <form class="form">
+                <button class="btn btn-primary btn-sm button"
                         formaction="/users/{{ user.id }}/edit"
                         formmethod="GET">Edit
                 </button>
-                <button class="btn btn-danger btn-sm"
+                <button class="btn btn-danger btn-sm button"
                         formaction="/users/{{ user.id }}/delete"
                         formmethod="POST">Delete
                 </button>
@@ -40,6 +40,20 @@
                 formaction="/users/{{ user.id }}/delete"
                 formmethod="post">Delete
             </button> -->
+        </div>
+
+        <div>
+            <h1>Posts</h1>
+            <ul>
+                {% for post in user.posts %}
+                <li>
+                  <a href="/posts/{{ post.id }}/">{{ post.title }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        
+            <p><a class="btn btn-sm btn-secondary button" href="/users/{{ user.id }}/posts/new">Add Post</a></p>
+            
         </div>
     </div>
 </body>
