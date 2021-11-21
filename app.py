@@ -25,10 +25,21 @@ connect_db(app)
 db.create_all()
 
 @app.route('/')
-def root():
-    """Homepage redirects to list of users."""
+def homepage():
+    """shows the 5 most recent posts."""
+    posts = Post.query.order_by(Post.created_at.desc()).limit(5).all()
+    return render_template('posts/homepage.html', posts=posts)
 
-    return redirect("/users")
+@app.errorhandler(404)
+def page_not_found(e):
+    # note that we set the 404 status explicitly
+    return render_template('404.html'), 404
+
+# @app.route('/')
+# def root():
+#     """Homepage redirects to list of users."""
+
+#     return redirect("/users")
 
 
 ##############################################################################
