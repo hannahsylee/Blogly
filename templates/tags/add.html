@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit User Form{% endblock %}
+
+{% block content %}
+<h1>Create a tag</h1>
+
+    <form method="post">
+        <div class="mb-3 row">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Enter a name for the tag">
+        </div>
+
+        <div class="mb-3 form-check">
+            {% for post in posts %}
+            <div>
+                <label class="form-check-label" for="post_{{ post.id }}">{{ post.title }}</label>
+                <input type="checkbox" 
+                        id="post_{{ post.id }}" 
+                        name="posts" 
+                        value="{{ post.id }}"> 
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="mb-3">
+            <a href="/tags" class="btn btn-outline-info button">Cancel</a>
+            <button type="submit" class="btn btn-success button">Add</button>
+        </div>
+
+
+
+    </form>
+
+{% endblock %}

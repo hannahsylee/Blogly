@@ -15,20 +15,36 @@
 
 {% block content %}
 <h1>Edit Post</h1>
-<form method="post">
+<form method="post" action="/posts/{{ post.id }}/edit">
 
     <div class="mb-3 row">
-        <label for="title">Title</label><br>
-        <input type="text" id="title" name="title"><br>
+        <label for="title">Title</label>
+        <input type="text" id="title" name="title" value="{{ post.title }}">
     </div>
     <div class="mb-3 row">
-        <label for="content">Content</label><br>
-        <input type="text" id="content" name="content"><br>
+        <label for="content">Content</label>
+        <input type="text" id="content" name="content" value = "{{ post.content }}">
     </div>
+
+    <div class="mb-3 form-check">
+        {% for tag in tags %}
+        <div>
+            <label class="form-check-label" for="tag_{{ tag.id }}">{{ tag.name }}</label>
+            <input type="checkbox" 
+                    id="tag_{{ tag.id }}" 
+                    name="tags" 
+                    value="{{ tag.id }}"
+                    {% if tag in post.tags %}checked{% endif %}> 
+        </div>
+        {% endfor %}
+    </div>
+
     <div class="mb-3">
         <a href="/users/{{ post.user_id }}" class="btn btn-outline-info button">Cancel</a>
         <button type="submit" class="btn btn-success button">Edit</button>
     </div>
+
+
 
 </form>
 {% endblock %}

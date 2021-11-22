@@ -38,6 +38,9 @@ class Post(db.Model):
     )
     # relation with user
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+
+    # direct navigation: post -> posttag & back
+    # post_posttag = db.relationship('PostTag', backref='posts')
     
     @property
     def friendly_date(self):
@@ -45,6 +48,25 @@ class Post(db.Model):
 
         return self.created_at.strftime("%a %b %-d  %Y, %-I:%M %p")
 
+class PostTag(db.Model):
+    """joins together a Post and a Tag"""
+
+    __tablename__ = "post_tag"
+
+    post_id = db.Column(db.Integer, db.ForeignKey('posts.id'), primary_key=True)
+    tag_id = db.Column(db.Integer, db.ForeignKey('tags.id'), primary_key=True)
+
+class Tag(db.Model):
+    """Tag Table"""
+
+    __tablename__ = "tags"
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.Text, nullable=False)
+
+    # direct navigation: tag -> post & back
+    posts = db.relationship('Post',
+                            secondary='post_tag',
+                            backref='tags')
 
 def connect_db(app):
     """Connect this database to provided Flask app.
